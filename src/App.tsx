@@ -9,8 +9,8 @@ function App() {
         <img src={mavLogo} className="logo" alt="Mav logo" />
       </div>
       <h1>Mav-Marketplace</h1>
+      <h2>Components:</h2>
       <div className="components">
-        <h2>Components:</h2>
         <Listing />
       </div>
     </>
