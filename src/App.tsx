@@ -5,7 +5,7 @@ import Listing from "./components/Listing";
 function App() {
   return (
     <>
-      <div>
+      <div className="logo-container">
         <img src={mavLogo} className="logo" alt="Mav logo" />
       </div>
       <h1>Mav-Marketplace</h1>
