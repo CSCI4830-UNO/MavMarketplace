@@ -1,0 +1,73 @@
+.listing-box {
+  border: 3px solid #000000;
+  border-radius: 8px;
+  background-color: #fff;
+  max-width: 300px;
+  transition: filter 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  filter: none;
+  align-self: center;
+}
+
+.listing-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px -5px rgba(255, 0, 0, 0.15);
+  border-color: #f0f0f0;
+}
+  
+
+.listing-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.listing-info {
+  display: flex;
+  background-color: #4f4f4f;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 0px 0px 4px 4px;
+  padding: 12px;
+  gap: 6px;
+}
+
+.item-name {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: left;
+  margin: 0;
+}
+
+.item-description {
+  font-size: 1em;
+  color: #d2d2d2;
+  line-height: 1.4;
+  text-align: left;
+  margin: 0 0 4px 0;
+}
+
+.meeting-div,
+.payment-div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.meeting-location,
+.payment-type {
+  color: #d30707;
+  text-decoration: none;
+  text-align: left;
+  font-size: 0.95em;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.meeting-location:hover,
+.payment-type:hover {
+  color: #ffffff;
+}
