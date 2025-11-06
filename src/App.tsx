@@ -1,7 +1,9 @@
 import mavLogo from "./assets/mav-logo.png";
 import "./css/App.css";
 import Listing from "./components/Listing";
+import Dashboard from "./components/Dashboard";
 
+/*
 function App() {
   return (
     <>
@@ -16,5 +18,13 @@ function App() {
     </>
   );
 }
+*/
 
+function App() {
+  return (
+    <>
+      <Dashboard />
+    </>
+  );
+}
 export default App;
