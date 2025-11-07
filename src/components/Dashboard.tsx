@@ -1,3 +1,4 @@
+import { Link, useLocation } from "react-router-dom";
 import { FaStore, FaCircle, FaList, FaMessage, FaUser, FaCircleQuestion } from "react-icons/fa6";
 import mavLogo from "../assets/mav-logo.png";
 import "../css/Dashboard.css";
@@ -11,14 +12,16 @@ type NavLink = {
 
 const links: NavLink[] = [
   { label: "Browse Listings", href: "/listings", icon: <FaStore />, description: "See what’s for sale right now" },
-  { label: "Post an Item", href: "/post", icon: <FaCircle />, description: "Create a new listing in minutes" },
+  { label: "Post an Item", href: "/create", icon: <FaCircle />, description: "Create a new listing in minutes" },
   { label: "My Listings", href: "/me/listings", icon: <FaList />, description: "Manage and edit your items" },
   { label: "Messages", href: "/messages", icon: <FaMessage />, description: "Chat with buyers and sellers" },
   { label: "Profile", href: "/profile", icon: <FaUser />, description: "Update your contact and payment" },
   { label: "Help / Safety", href: "/help", icon: <FaCircleQuestion />, description: "Guidelines, tips, and support" },
 ];
 
-export default function Dashboard() {
+export default function Dashboard({ activePage }: { activePage: React.ReactNode }) {
+  const location = useLocation();
+
   return (
     <div className="dash">
       <header className="dash__header dash__header--centered">
@@ -32,25 +35,21 @@ export default function Dashboard() {
       {/* Navigation Grid */}
       <section className="dash__grid">
         {links.map((l) => (
-          <a key={l.href} className="dash__card" href={l.href}>
+          <Link
+            key={l.href}
+            className={`dash__card ${location.pathname === l.href ? "dash__card--active" : ""}`}
+            to={l.href}
+          >
             <div className="dash__cardIcon">{l.icon}</div>
             <div className="dash__cardText">
               <h3 className="dash__cardTitle">{l.label}</h3>
               <p className="dash__cardDesc">{l.description}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </section>
 
-      {/* Announcements */}
-      <section className="dash__announcements">
-        <h2>Announcements</h2>
-        <ul>
-          <li>🎯 Meet in public spaces like <a href="https://shorturl.at/1tZbw" target="_blank" rel="noreferrer">Milo Bail Student Center</a>.</li>
-          <li>🔐 Never share passwords or sensitive info in messages.</li>
-          <li>💵 Prefer cashless options and confirm payment before handing over items.</li>
-        </ul>
-      </section>
+      <main>{activePage}</main>
 
       <footer className="dash__footer">
         <small>© {new Date().getFullYear()} Mav-Marketplace • For UNO students</small>
@@ -58,3 +57,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
