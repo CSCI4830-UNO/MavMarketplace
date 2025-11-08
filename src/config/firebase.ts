@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app";
 
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-import firebase from "firebase/compat/app";
-
 
 // Firebase configuration object containing project-specific credentials and settings
 //I know it looks wild but was reccommended to leave apiKey on client side
@@ -112,6 +110,7 @@ function authSignOut() {
         console.error(error.message)
     });
 }
+4. 
 */
 
 
