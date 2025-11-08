@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"; 
 
 // Firebase configuration object containing project-specific credentials and settings
+//I know it looks wild but was reccommended to leave apiKey on client side
 const firebaseConfig = {
   // API key for Firebase services authentication
   apiKey: "AIzaSyBBEDCaB5SH3YRcLKYRFTZvvxMEX_HRJKc",
@@ -24,12 +25,15 @@ const firebaseConfig = {
 // This creates the primary Firebase app instance we'll use throughout the application
 const app = initializeApp(firebaseConfig);
 
+//print out app
+console.log(app);
+
 // Initialize Firebase Authentication and get a reference to the auth service
 // This will be used for all authentication operations (sign in, sign up, etc.)
 const auth = getAuth(app); 
 
-// Export the auth instance so it can be imported and used in other parts of the application
-export { auth };
+//print out auth
+console.log(auth);
 
 
 
