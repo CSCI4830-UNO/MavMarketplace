@@ -8,24 +8,34 @@ import { MyListingPage } from "./pages/MyListingPage";
 import { MessagePage } from "./pages/MessagePage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { HelpPage } from "./pages/HelpPage";
+import { LoginPage } from "./pages/LoginPage";
 
 function App() {
   const location = useLocation();
 
+  const isLoginPage = location.pathname === "/login";
+
   return (
-    <Dashboard
-      activePage={
-        <Routes location={location}>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/listings" element={<ListingPage />} />
-          <Route path="/create" element={<CreatePage />} />
-          <Route path="/me/listings" element={<MyListingPage />} />
-          <Route path="/messages" element={<MessagePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/help" element={<HelpPage />} />
-        </Routes>
-      }
-    />
+    <>
+      {isLoginPage ? (
+        <LoginPage />
+      ) : (
+        <Dashboard
+        activePage={
+          <Routes location={location}>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/listings" element={<ListingPage />} />
+            <Route path="/create" element={<CreatePage />} />
+            <Route path="/me/listings" element={<MyListingPage />} />
+            <Route path="/messages" element={<MessagePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/help" element={<HelpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        }
+      />
+      )}
+    </>
   );
 }
 
