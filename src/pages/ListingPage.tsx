@@ -16,6 +16,7 @@ export function ListingPage() {
           description={listing.description}
           location={listing.location}
           paymentType={listing.paymentType}
+          canEdit={listing.canEdit}
         />
       ))}
     </div>
