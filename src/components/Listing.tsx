@@ -4,7 +4,7 @@ import "../css/Listing.css";
 import "../css/App.css";
 
 function Listing(listingProps: IListing) {
-  const { id, imageUrl, name, description, location, paymentType } =
+  const { id, imageUrl, name, description, location, paymentType, canEdit } =
     listingProps;
   const miloBailLink = "https://shorturl.at/1tZbw";
 
@@ -18,12 +18,15 @@ function Listing(listingProps: IListing) {
       <div className="listing-info">
         <h1 className="item-name">{name}</h1>
         <p className="item-description">{description}</p>
-        <a className="meeting-location" href={miloBailLink}>
+        <a className="meeting-location" href={miloBailLink} target="_blank">
           <FaMapLocationDot /> {location}
         </a>
         <a className="payment-type" href="">
           <FaDollarSign /> {paymentType}
         </a>
+        <button className="edit-button" hidden={!canEdit}>
+          Edit
+        </button>
       </div>
     </div>
   );
