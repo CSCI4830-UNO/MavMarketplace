@@ -7,8 +7,9 @@ export const listingMocks: IListing[] = [
         imageUrl: unoImage,
         name: "Mavs Pennant",
         description: "UNO Mavericks Pennant",
-        location: "Scott's Village",
+        location: "Scott Village",
         paymentType: "Venmo",
+        canEdit: false,
     },
     {
         id: "2",
@@ -17,6 +18,7 @@ export const listingMocks: IListing[] = [
         description: "UNO Maverick Lanyard",
         location: "Criss Library",
         paymentType: "Cashapp",
+        canEdit: true,
     },
     {
         id: "3",
@@ -25,6 +27,7 @@ export const listingMocks: IListing[] = [
         description: "UNO maverick Hockey Hat",
         location: "Milo Bail Student Center",
         paymentType: "Venmo",
+        canEdit: true,
     },
     {
         id: "4",
