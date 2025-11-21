@@ -1,0 +1,98 @@
+.filter-drawer .MuiDrawer-paper {
+  font-family: "Times New Roman", Times, serif;
+  background-color: #242424;
+  color: white;
+  width: 20%;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+  height: 100%;
+}
+
+.condition-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.condition-box .MuiFormGroup-root {
+  display: flex;
+  flex-direction: column ;
+  width: 100%;
+}
+
+.condition-box .location-box,
+.condition-box .payment-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.condition-box .MuiFormControlLabel-root {
+  width: 100%;
+  margin: 0;
+}
+
+.condition-box .price-box {
+  width: 100%;
+}
+
+.price-box .price-slider {
+  width: 100%;
+  padding: 0px 25px;
+  box-sizing: border-box;
+}
+
+.price-box p {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.price-slider .MuiSlider-root {
+  width: 100%;
+}
+
+.condition-box .MuiCheckbox-root {
+  color: white;
+}
+
+.condition-box .MuiCheckbox-root.Mui-checked {
+  color: #c02020aa;
+}
+
+.filter-container .title {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.secondary-title {
+  background-color: #555;
+  padding: 10px;
+}
+
+.submit-button.MuiButton-root {
+  background-color: #c02020aa;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 18px;
+  width: calc(100% - 32px);
+  margin: auto 16px 16px 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.submit-button.MuiButton-root:hover {
+  background-color: #555;
+}
+
+  
