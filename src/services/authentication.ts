@@ -1,95 +1,104 @@
-//authentication services for users
+/**
+ * authentication.ts
+ *
+ * This file contains all the Firebase authentication functions.
+ * These functions are called from React components (like LoginPage).
+ *
+ * Each function returns a Promise, which means:
+ * - We can use .then() and .catch() to handle success/errors
+ * - Or we can use async/await syntax
+ */
 
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword, signOut,onAuthStateChanged } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 import { auth } from "../config/firebase";
 
-/*
-Authentication Function Templates
-These functions will be connected to our React components later.
-They handle the core Firebase authentication operations.
-
-1. Sign In Function
--------------------
-This function will handle user login with email/password.
-Will be connected to the login form component.
-
-function authSignInWithEmail() {
-    console.log("Sign in with email and password")
-
-    // Will get these values from React form inputs later
-    const email = emailInputEl.value
-    const password = passwordInputEl.value
-
-    signInWithEmailAndPassword(auth,email,password)
-        .then((userCredential) => {
-            // Handle successful sign in
-            // Will update UI state in React
-            clearAuthFields()
-            showLoggedInView()
-        })
-        .catch((error) => {
-            // Handle sign in errors
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)
-        });
+/**
+ * Sign In Function
+ *
+ * Logs in an existing user with email and password.
+ * Returns a Promise that resolves with the user credential on success.
+ *
+ * @param email - User's email address
+ * @param password - User's password
+ * @returns Promise with UserCredential on success
+ *
+ * Usage in a component:
+ * try {
+ *   await signIn(email, password);
+ *   // redirect to home or show success
+ * } catch (error) {
+ *   // show error message to user
+ * }
+ */
+export function signIn(email: string, password: string) {
+  return signInWithEmailAndPassword(auth, email, password);
 }
 
-/*
-2. Account Creation Function
---------------------------
-Handles new user registration
-Will need to add UNO email validation
-Will add email verification later
-
-function authCreateAccountWithEmail() {
-    // Will get these values from React form inputs later
-    const email = emailInputEl.value
-    const password = passwordInputEl.value
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Handle successful account creation
-            clearAuthFields()
-            console.log("Account Created!")
-            showLoggedInView()
-        })
-        .catch((error) => {
-            // Handle registration errors
-            const errorCode = error.code
-            const errorMessage = error.message
-            console.log("ERROR")
-        })
+/**
+ * Create Account Function
+ *
+ * Creates a new user account with email and password.
+ * Returns a Promise that resolves with the user credential on success.
+ *
+ * @param email - User's email address (should be @unomaha.edu)
+ * @param password - User's chosen password
+ * @returns Promise with UserCredential on success
+ *
+ * TODO: Add UNO email validation (@unomaha.edu)
+ * TODO: Add email verification
+ */
+export function createAccount(email: string, password: string) {
+  return createUserWithEmailAndPassword(auth, email, password);
 }
 
-/*
-3. Sign Out Function
-------------------
-Handles user logout
-Will be connected to navigation/header component
-
-function authSignOut() {
-    signOut(auth).then(() => {
-        // Handle successful sign out
-        showLoggedOutView()
-    }).catch((error) => {
-        // Handle sign out errors
-        console.error(error.message)
-    });
+/**
+ * Sign Out Function
+ *
+ * Logs out the current user.
+ * Returns a Promise that resolves when sign out is complete.
+ *
+ * Usage:
+ * await logOut();
+ * // user is now logged out
+ */
+export function logOut() {
+  return signOut(auth);
 }
-4. Auth state changed
------------------------
-if user is logged in or not.
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        showLoggedInView()
-        showProfilePicture(userProfilePictureEl, user)
-        showUserGreeting(userGreetingEl, user)
-    } else {
-        showLoggedOutView()
-    }
-})
-*/
+/**
+ * Error Message Helper
+ *
+ * Converts Firebase error codes into user-friendly messages.
+ * Firebase errors are technical (like "auth/wrong-password"),
+ * so we translate them to something users can understand.
+ *
+ * @param errorCode - The Firebase error code
+ * @returns A user-friendly error message
+ */
+export function getAuthErrorMessage(errorCode: string): string {
+  switch (errorCode) {
+    case "auth/invalid-email":
+      return "Invalid email address format.";
+    case "auth/user-disabled":
+      return "This account has been disabled.";
+    case "auth/user-not-found":
+      return "No account found with this email.";
+    case "auth/wrong-password":
+      return "Incorrect password.";
+    case "auth/invalid-credential":
+      return "Invalid email or password.";
+    case "auth/email-already-in-use":
+      return "An account with this email already exists.";
+    case "auth/weak-password":
+      return "Password should be at least 6 characters.";
+    case "auth/too-many-requests":
+      return "Too many failed attempts. Please try again later.";
+    default:
+      return "An error occurred. Please try again.";
+  }
+}
