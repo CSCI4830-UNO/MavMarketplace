@@ -1,15 +1,12 @@
-/**
- * AuthContext.tsx
- *
+/** 
  * This file creates a "Context" - React's way of sharing data across all components
  * without having to pass props down through every level.
- *
  * Think of it like a global variable that any component can access.
  * Here we're sharing: the current user (or null if logged out)
  */
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 // Define what data our context will provide to components
@@ -47,6 +44,7 @@ interface AuthProviderProps {
  * <AuthProvider>
  *   <YourApp />
  * </AuthProvider>
+ * 
  */
 export function AuthProvider({ children }: AuthProviderProps) {
   // State to store the current user (null if not logged in)
@@ -81,10 +79,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   // Provide the auth data to all children
-  // We don't render children until loading is false to prevent flicker
+  // Show a loading indicator while checking auth status
+  // This prevents the protected route from redirecting before we know if user is logged in
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

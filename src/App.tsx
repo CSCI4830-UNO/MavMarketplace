@@ -1,7 +1,4 @@
 /**
- * App.tsx
- *
- * Main application component that sets up:
  * - AuthProvider: Wraps app to provide auth state to all components
  * - Routes: Defines which pages are shown for each URL
  * - ProtectedRoute: Guards routes that require authentication
