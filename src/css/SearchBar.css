@@ -1,0 +1,65 @@
+.search-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 25px;
+}
+
+.text-field {
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.text-field .MuiInputLabel-root {
+    color: #888;
+}
+
+.text-field .MuiInputLabel-root.Mui-focused {
+    color: #c02020aa;
+}
+
+.text-field .MuiInputBase-input {
+    color: white;
+}
+  
+.text-field input::placeholder {
+    color: #aaa;
+    opacity: 1;
+}
+  
+.text-field .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #ccc;
+}
+  
+.text-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #999;
+}
+  
+.text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #c02020aa;
+}
+
+.filter-button {
+    background-color: #555;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.15); 
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: saturate(140%) blur(2px); 
+    transition: transform .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.filter-button:hover {
+    border-color: #c02020aa;
+    color: #d30707;
+}

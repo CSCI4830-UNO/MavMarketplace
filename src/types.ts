@@ -2,7 +2,8 @@ export interface IListing {
     id: string;
     imageUrl: string;
     name: string;
-    description: string;
+    price: number;
     location: string;
     paymentType: string;
+    canEdit?: boolean;
 }

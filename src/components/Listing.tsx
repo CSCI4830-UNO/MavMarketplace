@@ -1,10 +1,12 @@
 import { FaMapLocationDot, FaDollarSign } from "react-icons/fa6";
+import type { FC } from "react";
 import type { IListing } from "../types";
 import "../css/Listing.css";
 import "../css/App.css";
+import { FaEdit } from "react-icons/fa";
 
-function Listing(listingProps: IListing) {
-  const { id, imageUrl, name, description, location, paymentType } =
+const Listing: FC<IListing> = (listingProps: IListing) => {
+  const { id, imageUrl, name, price, location, paymentType, canEdit } =
     listingProps;
   const miloBailLink = "https://shorturl.at/1tZbw";
 
@@ -17,16 +19,27 @@ function Listing(listingProps: IListing) {
       <img src={imageUrl} className="listing-image" alt="Mav logo" />
       <div className="listing-info">
         <h1 className="item-name">{name}</h1>
-        <p className="item-description">{description}</p>
-        <a className="meeting-location" href={miloBailLink}>
-          <FaMapLocationDot /> {location}
-        </a>
-        <a className="payment-type" href="">
-          <FaDollarSign /> {paymentType}
-        </a>
+        <p className="item-description">${price}</p>
+
+        <div className="listing-bottom-row">
+          <div className="left-meta">
+            <a className="icon" href={miloBailLink} target="_blank">
+              <FaMapLocationDot /> {location}
+            </a>
+            <a className="icon">
+              <FaDollarSign /> {paymentType}
+            </a>
+          </div>
+
+          {canEdit && (
+            <a className="icon edit-icon">
+              <FaEdit />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Listing;
