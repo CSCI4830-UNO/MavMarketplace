@@ -1,6 +1,6 @@
 import { Slider, SliderThumb } from "@mui/material";
 import type { FC, HTMLAttributes } from "react";
-import "../css/PriceSlider.css";
+import "../../../css/PriceSlider.css";
 
 interface PriceThumbComponentProps extends HTMLAttributes<unknown> {}
 

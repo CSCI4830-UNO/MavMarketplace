@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { listingMocks } from "../mock-data/listing-mocks";
 import Listing from "../components/Listing";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 import "../css/ListingPage.css";
 import "../css/App.css";

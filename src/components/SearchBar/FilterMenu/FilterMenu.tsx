@@ -5,10 +5,11 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
-import PriceSlider from "./PriceSlider";
+import PriceSlider from "../PriceSlider/PriceSlider";
 import type { FC } from "react";
-import "../css/FilterMenu.css";
-import "../css/App.css";
+
+import "../../../css/FilterMenu.css";
+import "../../../css/App.css";
 
 interface FilterMenuProps {
   open: boolean;

@@ -2,10 +2,10 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { FaFilter } from "react-icons/fa6";
-import FilterMenu from "./FilterMenu";
+import FilterMenu from "./FilterMenu/FilterMenu";
 
-import "../css/SearchBar.css";
-import "../css/App.css";
+import "../../css/SearchBar.css";
+import "../../css/App.css";
 
 interface SearchBarProps {
   onSearch: (value: string) => void;
@@ -45,7 +45,11 @@ const SearchBar: FC<SearchBarProps> = ({ onSearch, onFilterChange }) => {
         onChange={inputHandler}
       />
 
-      <button className="filter-button" onClick={toggleDrawer(true)}>
+      <button
+        className="filter-button"
+        onClick={toggleDrawer(true)}
+        aria-label="Open Filters"
+      >
         <FaFilter />
       </button>
 
