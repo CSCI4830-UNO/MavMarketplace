@@ -10,7 +10,7 @@
 
 import "./css/App.css";
 import Dashboard from "./components/Dashboard";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
 import { ListingPage } from "./pages/ListingPage";
 import { CreatePage } from "./pages/CreatePage";
@@ -25,63 +25,49 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  const location = useLocation();
-
-  const isLoginPage = location.pathname === "/login";
-
   return (
-    // AuthProvider wraps everything so all components can access auth state
     <AuthProvider>
-      {isLoginPage ? (
-        <LoginPage />
-      ) : (
-        <Dashboard
-          activePage={
-            <Routes location={location}>
-              {/* Public routes - anyone can access */}
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/listings" element={<ListingPage />} />
-              <Route path="/help" element={<HelpPage />} />
-              <Route path="/login" element={<LoginPage />} />
+      <Routes>
+        <Route element={<Dashboard />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/listings" element={<ListingPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-              {/* Protected routes - require login */}
-              {/* If not logged in, user will be redirected to /login */}
-              <Route
-                path="/create"
-                element={
-                  <ProtectedRoute>
-                    <CreatePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/me/listings"
-                element={
-                  <ProtectedRoute>
-                    <MyListingPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/messages"
-                element={
-                  <ProtectedRoute>
-                    <MessagePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <ProfilePage />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          }
-        />
-      )}
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <CreatePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/me/listings"
+            element={
+              <ProtectedRoute>
+                <MyListingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute>
+                <MessagePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+      </Routes>
     </AuthProvider>
   );
 }

@@ -33,8 +33,6 @@ export function ListingPage() {
 
   return (
     <div>
-      <h1>Listing Page</h1>
-
       <SearchBar
         onSearch={setSearchText}
         onFilterChange={(priceRange, locations, payments) => {

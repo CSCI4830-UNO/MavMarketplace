@@ -121,9 +121,7 @@ export function LoginPage() {
         </button>
 
         <div className="login-reset">
-          //Will eventually route user to a create account page
-          <a href="#">New? Create an account!</a>
-          //Possible help page/password recovery functionality
+          <a href="#">Create an account</a>
           <a href="#">Forgot password?</a>
         </div>
       </form>
