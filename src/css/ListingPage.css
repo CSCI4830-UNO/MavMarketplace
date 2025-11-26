@@ -4,3 +4,55 @@
     gap: 20px;
     padding: 20px;
 }
+
+
+
+
+.my-listings-page {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.add-btn {
+  padding: 10px 20px;
+  background-color: #d00000; /* Maverick Red */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-btn:hover {
+  background-color: #a00000;
+}
+
+
+.listing-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%; 
+}
+
+.delete-btn {
+  padding: 8px;
+  background: transparent;
+  border: 1px solid red;
+  color: red;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+}
+
+.delete-btn:hover {
+  background-color: #fff0f0;
+}
