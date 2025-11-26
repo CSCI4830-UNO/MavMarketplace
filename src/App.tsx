@@ -49,9 +49,9 @@ function App() {
               <Route
                 path="/create"
                 element={
-                  /*<ProtectedRoute>*/
+                  <ProtectedRoute>
                     <CreatePage />
-                  /*</ProtectedRoute>*/
+                  </ProtectedRoute>
                 }
               />
               <Route
