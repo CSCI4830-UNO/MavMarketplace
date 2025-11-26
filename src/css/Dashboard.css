@@ -1,145 +1,89 @@
-/* src/css/Dashboard.css */
-.dash { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
-
-.dash__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  text-align: center;
+.dash {
+  margin: 0;
+  padding: 0;
 }
 
-.dash__logo {
-  width: 100px;
-  height: 100px;
+.dash-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dash-navbar {
+    background: #1e1e1e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.dash-logo {
+  width: 60px;
+  height: 60px;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  margin-bottom: 1rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.dash__titles { 
-    display: flex; 
-    flex-direction: column; 
+.dash-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
 }
 
-.dash__title { 
-    font-size: 2rem; 
-    margin: 0 0 0.15rem 0; 
-    line-height: 1.2; 
+.dash-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: #213547;
+  border-radius: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.dash__subtitle { 
-    margin: 0; 
-    opacity: 0.85; 
+@media (prefers-color-scheme: dark) {
+  .dash-nav-link {
+    color: #f2f2f2;
+  }
 }
 
-.dash__quick { 
-    display: flex; 
-    gap: 0.75rem; 
-    flex-wrap: wrap; 
-    margin: 1rem 0 1.25rem 0; 
+.dash-nav-link:hover {
+  background: rgba(122, 122, 122, 0.1);
 }
 
-.dash__quickBtn {
-    padding: 0.7rem 1rem;
-    border-radius: 10px; 
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.15); 
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: saturate(140%) blur(2px); 
-    font-weight: 600;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    display: inline-block;
+.dash-nav-active {
+  color: #d30707;
 }
 
-.dash__quickBtn:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 12px 24px -12px rgba(0,0,0,0.4); 
-    border-color: rgba(255,255,255,0.35); 
+.profile-icon {
+  font-size: 2rem;
+  color: #d30707;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
-.dash__quickBtn--primary { 
-    background: #d30707; 
-    color: #fff; 
-    border-color: transparent; 
+.profile-icon:hover {
+  opacity: 0.75;
 }
 
-.dash__grid { 
-    display: grid; 
-    grid-template-columns: repeat(6, 1fr); 
-    gap: 0.9rem; 
+.dash-main {
+  padding: 6rem 1.5rem 1.5rem;
 }
 
-@media (max-width:1100px){ .dash__grid{ grid-template-columns: repeat(3,1fr);} }
-@media (max-width:640px){ .dash__grid{ grid-template-columns: repeat(2,1fr);} }
-
-.dash__card {
-  display:flex; 
-  align-items:flex-start; 
-  gap:.75rem; 
-  padding:1rem; 
-  border-radius:12px; 
-  text-decoration:none;
-  background:#fff; 
-  color:#213547; 
-  border:1px solid #eee;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-}
-
-@media (prefers-color-scheme:dark){
-  .dash__card{ 
-    background:#2b2b2b; 
-    color:#f2f2f2; 
-    border-color:rgba(255,255,255,.08); }
-}
-
-.dash__card:hover { 
-    transform: translateY(-4px); 
-    box-shadow:0 18px 34px -16px rgba(0,0,0,.35); 
-    border-color: rgba(211,7,7,.5); 
-}
-
-.dash__cardIcon { 
-    font-size:1.4rem; 
-    line-height:1; 
-    margin-top:.15rem; 
-    color:#d30707; 
-}
-
-.dash__cardTitle { 
-    margin:0 0 .25rem 0; 
-    font-size:1.05rem; 
-}
-
-.dash__cardDesc { 
-    margin:0; 
-    opacity:.85; 
-    font-size:.95rem; 
-}
-
-.dash__announcements { 
-    margin-top:1.5rem; 
-    padding:1rem; 
-    border-radius:12px; 
-    background:rgba(255,255,255,.06); 
-    border:1px solid rgba(255,255,255,.12); 
-}
-
-.dash__announcements h2 { 
-    margin-top:0; 
-}
-.dash__announcements ul { 
-    margin:.5rem 0 0 1.1rem; 
-    padding:0; 
-    display:grid; 
-    gap:.35rem; 
-}
-
-.dash__footer { 
-    display:flex; 
-    justify-content:center; 
-    margin:1.5rem 0 .5rem 0; 
-    opacity:.7; 
+.dash-footer {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+  opacity: 0.7;
 }

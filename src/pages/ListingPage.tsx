@@ -43,13 +43,15 @@ export function MyListingPage() {
   };
 
   return (
-    <div className="my-listings-page">
-      <div className="page-header">
-        <h1>My Listings</h1>
-        <button className="add-btn">
-          + Create New
-        </button>
-      </div>
+    <div>
+      <SearchBar
+        onSearch={setSearchText}
+        onFilterChange={(priceRange, locations, payments) => {
+          setSelectedPriceRange(priceRange);
+          setSelectedLocations(locations);
+          setSelectedPayments(payments);
+        }}
+      />
 
     
       <div className="listing-grid">
