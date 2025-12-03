@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { listingMocks } from "../mock-data/listing-mocks";
-import type { IListing } from "../types";
 import Listing from "../components/Listing";
 import SearchBar from "../components/SearchBar";
 import "../css/ListingPage.css";
 
 export function ListingPage() {
-  const [listings, setListings] = useState<IListing[]>(listingMocks);
-
   const [searchText, setSearchText] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
 
-  const filteredListings = listings.filter((listing) => {
+  const filteredListings = listingMocks.filter((listing) => {
     const matchesSearch =
       searchText.trim() === "" ||
       listing.name.toLowerCase().includes(searchText.toLowerCase());
@@ -34,12 +31,6 @@ export function ListingPage() {
     return matchesSearch && matchesPrice && matchesLocation && matchesPayment;
   });
 
-  const handleDelete = (id: string) => {
-    if (confirm("Are you sure you want to delete this listing?")) {
-      setListings(listings.filter((item) => item.id !== id));
-    }
-  };
-
   return (
     <div>
       <SearchBar
@@ -55,12 +46,6 @@ export function ListingPage() {
         {filteredListings.map((item) => (
           <div key={item.id} className="listing-wrapper">
             <Listing {...item} />
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(item.id)}
-            >
-              Delete Listing
-            </button>
           </div>
         ))}
       </div>
