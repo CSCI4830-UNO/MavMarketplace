@@ -19,6 +19,7 @@ import { MessagePage } from "./pages/MessagePage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { HelpPage } from "./pages/HelpPage";
 import { LoginPage } from "./pages/LoginPage";
+import { SignupPage } from "./pages/SignUpPage";
 
 // Import auth components
 import { AuthProvider } from "./contexts/AuthContext";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/listings" element={<ListingPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
 
           <Route
             path="/create"

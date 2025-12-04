@@ -14,6 +14,7 @@ import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn, getAuthErrorMessage } from "../services/authentication";
 import { FirebaseError } from "firebase/app";
+import { Link } from "react-router-dom";
 import "../css/LoginPage.css";
 
 export function LoginPage() {
@@ -121,7 +122,7 @@ export function LoginPage() {
         </button>
 
         <div className="login-reset">
-          <a href="#">Create an account</a>
+          <Link to="/signup">New? Create an account</Link>
           <a href="#">Forgot password?</a>
         </div>
       </form>
