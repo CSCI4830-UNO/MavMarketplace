@@ -1,6 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../css/SignupPage.css"; // optional if you want styles
+import { createAccount, getAuthErrorMessage } from "../services/authentication";
+import { FirebaseError } from "firebase/app";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 export function SignupPage() {
   // Components to be used for getting data for the backend
@@ -45,16 +49,33 @@ export function SignupPage() {
     try {
       setLoading(true);
 
-      // TODO: Replace this with actual backend signup logic
-      // await createAccount(email, password, firstName, lastName, dob);
+      // Create the Firebase Authentication account
+      // This gives the user an account and a unique ID (UID)
+      const userCredential = await createAccount(email, password);
 
-      // TEMPORARY dummy delay so the UI behaves like the login page
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      //Get the user's unique ID from Firebase Auth
+      const userId = userCredential.user.uid;
 
-      // Redirect back to login page once signup completes
+      // Store additional user info in Firestore database
+      // We use the UID as the document ID so we can easily find this user's data later
+      await setDoc(doc(db, "users", userId), {
+        firstName: firstName,
+        lastName: lastName,
+        dateOfBirth: dob,
+        email: email,
+        createdAt: new Date().toISOString(), // Track when account was created
+      });
+
+      // redirect to login page
       navigate("/login");
     } catch (err) {
-      setError("Signup failed. Please try again.");
+      // Handle errors - Firebase specific error codes
+      if (err instanceof FirebaseError) {
+        setError(getAuthErrorMessage(err.code));
+      } else {
+        
+        setError("Signup failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
