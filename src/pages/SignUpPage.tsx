@@ -11,6 +11,7 @@ export function SignupPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -31,6 +32,7 @@ export function SignupPage() {
       !firstName ||
       !lastName ||
       !dob ||
+      !phone ||
       !email ||
       !password ||
       !confirmPassword
@@ -62,6 +64,7 @@ export function SignupPage() {
         firstName: firstName,
         lastName: lastName,
         dateOfBirth: dob,
+        phone: phone,
         email: email,
         createdAt: new Date().toISOString(), // Track when account was created
       });
@@ -123,6 +126,17 @@ export function SignupPage() {
           className="signup-input"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
+          disabled={loading}
+        />
+
+        {/* Phone Number */}
+        <label className="signup-label">Phone Number</label>
+        <input
+          type="tel"
+          placeholder="(402) 555-0123"
+          className="signup-input"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           disabled={loading}
         />
 
