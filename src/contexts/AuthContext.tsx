@@ -6,7 +6,7 @@
  */
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 // Define what data our context will provide to components
@@ -14,6 +14,7 @@ import { auth } from "../config/firebase";
 interface AuthContextType {
   currentUser: User | null;  // The logged-in user, or null if not logged in
   loading: boolean;          // True while we're checking if user is logged in
+  logout: () => Promise<void>; // Function to sign out the user
 }
 
 // Create the context with default values
@@ -21,6 +22,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   currentUser: null,
   loading: true,
+  logout: async () => {},
 });
 
 // Custom hook - a shortcut for components to access our auth data
@@ -72,10 +74,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return unsubscribe;
   }, []); // Empty array means this only runs once when component mounts
 
+  // Function to log out the user
+  async function logout() {
+    await signOut(auth);
+  }
+
   // The value that will be available to all child components
   const value = {
     currentUser,
     loading,
+    logout,
   };
 
   // Provide the auth data to all children

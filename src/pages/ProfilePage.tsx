@@ -15,7 +15,7 @@ type UserProfile = {
 };
 
 export function ProfilePage() {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -106,6 +106,16 @@ export function ProfilePage() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      await logout();
+      // The auth state listener will automatically redirect to login page
+    } catch (err) {
+      console.error("Logout error:", err);
+      setError("Failed to log out. Please try again.");
+    }
+  }
+
   if (loading) {
     return <div>Loading profile...</div>;
   }
@@ -125,6 +135,9 @@ export function ProfilePage() {
           {userProfile.firstName} {userProfile.lastName}
         </h1>
         <p className="profile__subtitle">UNO Mav-Marketplace Profile</p>
+        <button onClick={handleLogout} className="profile__logoutButton">
+          Log Out
+        </button>
       </header>
 
       <div className="profile__imageContainer">
