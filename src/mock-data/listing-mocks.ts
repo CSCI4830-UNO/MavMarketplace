@@ -20,7 +20,6 @@ export const listingMocks: IListing[] = [
     price: randomPrice(),
     location: locations[0],
     paymentType: payments[0],
-    canEdit: false,
   },
   {
     id: "2",
@@ -29,7 +28,6 @@ export const listingMocks: IListing[] = [
     price: randomPrice(),
     location: locations[1],
     paymentType: payments[1],
-    canEdit: true,
   },
   {
     id: "3",
@@ -38,7 +36,6 @@ export const listingMocks: IListing[] = [
     price: randomPrice(),
     location: locations[2],
     paymentType: payments[0],
-    canEdit: true,
   },
   {
     id: "4",
