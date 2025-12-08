@@ -84,3 +84,15 @@
     color: #b10606;
     text-decoration: underline;
 }
+
+.login-error {
+  color: #ff4b4b;
+  background-color: rgba(255, 75, 75, 0.15);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 75, 75, 0.3);
+}
