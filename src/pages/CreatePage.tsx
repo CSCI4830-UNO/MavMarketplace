@@ -1,65 +1,85 @@
-import { useState, type FormEvent } from "react";
-import "../css/CreatePage.css";     // <-- NEW CSS FILE
+import { useState, type FormEvent, useRef } from "react";
+import type { IListing } from "../types";
+import "../css/CreatePage.css";
 import "../css/App.css";
 
-type NewListing = {
-  id: string;
-  name: string;
-  price: number;
-  location: string;
-  paymentType: string;
-  imageUrl: string;
-};
+import { db, auth } from "../config/firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { FaDollarSign } from "react-icons/fa6";
 
 export function CreatePage() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
-  const [paymentType, setPaymentType] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
-  const [error, setError] = useState("");
+  const [user] = useAuthState(auth);
 
-  // Handle image upload
+  const [name, setName] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [paymentType, setPaymentType] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imagePreview, setImagePreview] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const url = URL.createObjectURL(file);
     setImagePreview(url);
-    setImageUrl(url); // later replace with Firebase Storage URL
+    setImageUrl(url);
   };
 
   // Create listing
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !price || !location || !paymentType || !imageUrl) {
-      setError("Please fill out all fields.");
+    if (!user) {
+      setError("You must be logged in to create a listing.");
       return;
     }
 
-    const newListing: NewListing = {
+    if (Number(price) <= 0) {
+      setError("Your price must be greater than $0");
+      return;
+    }
+
+    if (!name || !price || !location || !paymentType || !imageUrl) {
+      setError("Please fill out all fields");
+      return;
+    }
+
+    const newListing: IListing = {
       id: crypto.randomUUID(),
+      imageUrl,
       name,
       price: Number(price),
       location,
       paymentType,
-      imageUrl,
+      canEdit: user.uid,
     };
 
-    console.log("NEW LISTING CREATED:", newListing);
+    try {
+      await addDoc(collection(db, "listings"), newListing);
 
-    alert("Listing Created Successfully!");
+      alert("Listing Created Successfully!");
 
-    // Reset fields
-    setName("");
-    setPrice("");
-    setLocation("");
-    setPaymentType("");
-    setImageUrl("");
-    setImagePreview("");
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      // Reset fields
+      setName("");
+      setPrice("");
+      setLocation("");
+      setPaymentType("");
+      setImageUrl("");
+      setImagePreview("");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to create listing. Please try again.");
+    }
   };
 
   return (
@@ -77,6 +97,7 @@ export function CreatePage() {
             accept="image/*"
             className="create-file"
             onChange={handleImageUpload}
+            ref={fileInputRef}
           />
         </label>
 
@@ -87,18 +108,6 @@ export function CreatePage() {
             className="create-image-preview"
           />
         )}
-
-        {/* IMAGE URL (optional if uploading) */}
-        <label>
-          Image URL (optional if uploading)
-          <input
-            type="text"
-            className="create-input"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="https://example.com/image.jpg"
-          />
-        </label>
 
         {/* ITEM NAME */}
         <label>
@@ -115,13 +124,17 @@ export function CreatePage() {
         {/* PRICE */}
         <label>
           Price
-          <input
-            type="number"
-            className="create-input"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Ex: 25"
-          />
+          <div className="price-input-wrapper">
+            <FaDollarSign className="price-icon" />
+            <input
+              type="number"
+              className="create-input price-input"
+              min="1"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="Ex: 25"
+            />
+          </div>
         </label>
 
         {/* LOCATION */}
