@@ -23,6 +23,30 @@ export function SignupPage() {
   // Used for navigation (specifcally redirects to the login page after successful signup)
   const navigate = useNavigate();
 
+  // Phone number formatting function
+  const formatPhoneNumber = (value: string): string => {
+    // Remove all non-digit characters
+    const digits = value.replace(/\D/g, "");
+
+    // Limit to 10 digits
+    const limitedDigits = digits.slice(0, 10);
+
+    // Format as 123-456-7890
+    if (limitedDigits.length <= 3) {
+      return limitedDigits;
+    } else if (limitedDigits.length <= 6) {
+      return `${limitedDigits.slice(0, 3)}-${limitedDigits.slice(3)}`;
+    } else {
+      return `${limitedDigits.slice(0, 3)}-${limitedDigits.slice(3, 6)}-${limitedDigits.slice(6)}`;
+    }
+  };
+
+  // Handle phone number input with formatting
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhone(formatted);
+  };
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
@@ -51,6 +75,13 @@ export function SignupPage() {
     // Validate email domain. must be @unomaha.edu
     if (!email.toLowerCase().endsWith("@unomaha.edu")) {
       setError("Please use a valid UNO email address (@unomaha.edu)");
+      return;
+    }
+
+    // Validate phone number format (must be exactly 10 digits)
+    const phoneDigits = phone.replace(/\D/g, "");
+    if (phoneDigits.length !== 10) {
+      setError("Please enter a valid 10-digit phone number.");
       return;
     }
 
@@ -139,10 +170,10 @@ export function SignupPage() {
         <label className="signup-label">Phone Number</label>
         <input
           type="tel"
-          placeholder="(402) 555-0123"
+          placeholder="123-456-7890"
           className="signup-input"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={handlePhoneChange}
           disabled={loading}
         />
 
