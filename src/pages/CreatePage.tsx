@@ -164,7 +164,7 @@ export function CreatePage() {
             onChange={(e) => setLocation(e.target.value)}
           >
             <option value="">Select location</option>
-            <option>Scott Village</option>
+            <option>Scott Village Clubhouse</option>
             <option>Criss Library</option>
             <option>Milo Bail Student Center</option>
           </select>
