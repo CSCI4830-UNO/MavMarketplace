@@ -8,6 +8,7 @@
 .profile__header {
   text-align: center;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .profile__name {
@@ -22,9 +23,30 @@
   font-size: 1rem;
 }
 
+.profile__logoutButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem 1.25rem;
+  background-color: #d30707;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile__logoutButton:hover {
+  background-color: #b00606;
+}
+
 .profile__imageContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -34,6 +56,39 @@
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+.profile__avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d30707 0%, #ff4444 100%);
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.profile__uploadButton {
+  padding: 0.5rem 1.5rem;
+  background-color: #d30707;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile__uploadButton:hover:not(:disabled) {
+  background-color: #b00606;
+}
+
+.profile__uploadButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .profile__card {

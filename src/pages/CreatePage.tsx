@@ -3,8 +3,9 @@ import type { IListing } from "../types";
 import "../css/CreatePage.css";
 import "../css/App.css";
 
-import { db, auth } from "../config/firebase";
+import { db, auth, storage } from "../config/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaDollarSign } from "react-icons/fa6";
 
@@ -15,9 +16,10 @@ export function CreatePage() {
   const [price, setPrice] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [paymentType, setPaymentType] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [uploading, setUploading] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,9 +27,12 @@ export function CreatePage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Store the actual file for later upload
+    setImageFile(file);
+
+    // Create preview URL for display only
     const url = URL.createObjectURL(file);
     setImagePreview(url);
-    setImageUrl(url);
   };
 
   // Create listing
@@ -45,22 +50,33 @@ export function CreatePage() {
       return;
     }
 
-    if (!name || !price || !location || !paymentType || !imageUrl) {
+    if (!name || !price || !location || !paymentType || !imageFile) {
       setError("Please fill out all fields");
       return;
     }
 
-    const newListing: IListing = {
-      id: crypto.randomUUID(),
-      imageUrl,
-      name,
-      price: Number(price),
-      location,
-      paymentType,
-      canEdit: user.uid,
-    };
+    setUploading(true);
 
     try {
+      // Upload image to Firebase Storage
+      const imageFileName = `listings/${user.uid}/${Date.now()}_${imageFile.name}`;
+      const storageRef = ref(storage, imageFileName);
+
+      await uploadBytes(storageRef, imageFile);
+
+      // Get the permanent download URL
+      const imageUrl = await getDownloadURL(storageRef);
+
+      const newListing: IListing = {
+        id: crypto.randomUUID(),
+        imageUrl,
+        name,
+        price: Number(price),
+        location,
+        paymentType,
+        canEdit: user.uid,
+      };
+
       await addDoc(collection(db, "listings"), newListing);
 
       alert("Listing Created Successfully!");
@@ -74,11 +90,13 @@ export function CreatePage() {
       setPrice("");
       setLocation("");
       setPaymentType("");
-      setImageUrl("");
+      setImageFile(null);
       setImagePreview("");
     } catch (err) {
       console.error(err);
       setError("Failed to create listing. Please try again.");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -167,8 +185,8 @@ export function CreatePage() {
           </select>
         </label>
 
-        <button type="submit" className="create-button">
-          Create Listing
+        <button type="submit" className="create-button" disabled={uploading}>
+          {uploading ? "Creating Listing..." : "Create Listing"}
         </button>
       </form>
     </div>
