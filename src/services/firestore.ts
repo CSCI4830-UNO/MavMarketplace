@@ -19,6 +19,9 @@ posts/                              [Collection]
     ├── uid: string                (user ID of poster)
     └── createdAt: timestamp       (post creation time)
 ====================================================================
+*/
+
+/*
 async function addListingToDB(listingBody, user) {
     try {
         const docRef = await addDoc(collection(db, "listings"), {
@@ -35,5 +38,4 @@ async function addListingToDB(listingBody, user) {
     }
 
 }
-
 */

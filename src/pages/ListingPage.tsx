@@ -1,16 +1,41 @@
-import { useState } from "react";
-import { listingMocks } from "../mock-data/listing-mocks";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import Listing from "../components/Listing";
 import SearchBar from "../components/SearchBar";
+import type { IListing } from "../types";
 import "../css/ListingPage.css";
 
 export function ListingPage() {
+  const [user] = useAuthState(auth);
+  const [myListings, setMyListings] = useState<IListing[]>([]);
+
   const [searchText, setSearchText] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
 
-  const filteredListings = listingMocks.filter((listing) => {
+  useEffect(() => {
+    const fetchListings = async () => {
+      if (!user) return;
+
+      const listingsRef = collection(db, "listings");
+
+      const querySnapshot = await getDocs(listingsRef);
+
+      const items = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as IListing[];
+
+      setMyListings(items);
+    };
+
+    fetchListings();
+  }, [user]);
+
+  const filteredListings = myListings.filter((listing) => {
     const matchesSearch =
       searchText.trim() === "" ||
       listing.name.toLowerCase().includes(searchText.toLowerCase());

@@ -5,5 +5,5 @@ export interface IListing {
     price: number;
     location: string;
     paymentType: string;
-    canEdit?: boolean;
+    canEdit?: string;
 }

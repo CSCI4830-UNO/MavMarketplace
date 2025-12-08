@@ -16,7 +16,11 @@ const Listing: FC<IListing> = (listingProps: IListing) => {
 
   return (
     <div className="listing-box" onClick={handleClick} title={id}>
-      <img src={imageUrl} className="listing-image" alt="Mav logo" />
+      <img
+        src={imageUrl || "../assets/uno-image.jpg"}
+        className="listing-image"
+        alt="Mav logo"
+      />
       <div className="listing-info">
         <h1 className="item-name">{name}</h1>
         <p className="item-description">${price}</p>
