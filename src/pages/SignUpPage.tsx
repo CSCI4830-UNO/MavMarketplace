@@ -48,6 +48,12 @@ export function SignupPage() {
       return;
     }
 
+    // Validate email domain. must be @unomaha.edu
+    if (!email.toLowerCase().endsWith("@unomaha.edu")) {
+      setError("Please use a valid UNO email address (@unomaha.edu)");
+      return;
+    }
+
     try {
       setLoading(true);
 
