@@ -18,8 +18,6 @@ export function ListingPage() {
 
   useEffect(() => {
     const fetchListings = async () => {
-      if (!user) return;
-
       const listingsRef = collection(db, "listings");
 
       const querySnapshot = await getDocs(listingsRef);
@@ -33,7 +31,7 @@ export function ListingPage() {
     };
 
     fetchListings();
-  }, [user]);
+  }, []);
 
   const filteredListings = myListings.filter((listing) => {
     const matchesSearch =
