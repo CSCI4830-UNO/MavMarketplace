@@ -11,6 +11,14 @@ import { useNavigate } from "react-router-dom";
 const Listing: FC<IListing> = (listingProps: IListing) => {
   const { id, imageUrl, name, price, location, paymentType, canEdit } =
     listingProps;
+  
+  const locationLinks: Record<string, string> = {
+    "Milo Bail Student Center": "https://maps.app.goo.gl/LheoriHSPCskG7hV7",
+    "Criss Library": "https://maps.app.goo.gl/QGNq4x4n8Gt11LnC7",
+    "Scott Village Clubhouse": "https://maps.app.goo.gl/fDCYKE3Gf2xbMavC6",
+  }
+
+  const locationUrl = locationLinks[location] || "https://maps.google.com";
 
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
@@ -34,7 +42,7 @@ const Listing: FC<IListing> = (listingProps: IListing) => {
 
         <div className="listing-bottom-row">
           <div className="left-meta">
-            <a className="icon" href={miloBailLink} target="_blank">
+            <a className="icon" href={locationUrl} target="_blank">
               <FaMapLocationDot /> {location}
             </a>
             <a className="icon">
