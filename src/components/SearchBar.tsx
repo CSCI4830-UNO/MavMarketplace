@@ -20,7 +20,7 @@ const SearchBar: FC<SearchBarProps> = ({ onSearch, onFilterChange }) => {
   const [inputText, setInputText] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([0, 1000]);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
 

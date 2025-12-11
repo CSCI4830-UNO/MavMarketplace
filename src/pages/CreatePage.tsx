@@ -4,7 +4,7 @@ import "../css/CreatePage.css";
 import "../css/App.css";
 
 import { db, auth, storage } from "../config/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaDollarSign } from "react-icons/fa6";
@@ -59,7 +59,9 @@ export function CreatePage() {
 
     try {
       // Upload image to Firebase Storage
-      const imageFileName = `listings/${user.uid}/${Date.now()}_${imageFile.name}`;
+      const imageFileName = `listings/${user.uid}/${Date.now()}_${
+        imageFile.name
+      }`;
       const storageRef = ref(storage, imageFileName);
 
       await uploadBytes(storageRef, imageFile);
@@ -77,7 +79,7 @@ export function CreatePage() {
         canEdit: user.uid,
       };
 
-      await addDoc(collection(db, "listings"), newListing);
+      await setDoc(doc(db, "listings", newListing.id), newListing);
 
       alert("Listing Created Successfully!");
 

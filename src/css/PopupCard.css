@@ -1,0 +1,54 @@
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.popup-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 95%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+  animation: popup-show 0.2s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .popup-card {
+    background: #242424;
+    box-shadow: 0 12px 28px rgba(255,255,255,0.05);
+  }
+}
+
+.popup-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #d30707;
+}
+
+@keyframes popup-show {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
