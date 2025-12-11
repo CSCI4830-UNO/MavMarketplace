@@ -89,11 +89,11 @@ const FilterMenu: FC<FilterMenuProps> = (props) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={selectedLocations.includes("Scott Village")}
-                    onChange={() => toggleLocation("Scott Village")}
+                    checked={selectedLocations.includes("Scott Village Clubhouse")}
+                    onChange={() => toggleLocation("Scott Village Clubhouse")}
                   />
                 }
-                label="Scott Village"
+                label="Scott Village Clubhouse"
               />
               <FormControlLabel
                 control={

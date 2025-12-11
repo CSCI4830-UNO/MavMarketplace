@@ -8,7 +8,18 @@ import { FaEdit } from "react-icons/fa";
 const Listing: FC<IListing> = (listingProps: IListing) => {
   const { id, imageUrl, name, price, location, paymentType, canEdit } =
     listingProps;
-  const miloBailLink = "https://shorturl.at/1tZbw";
+  // Old hardcoded link
+  // const miloBailLink = "https://shorturl.at/1tZbw";
+
+  // Mapping of location names to URLs (actually leads to individual locations on maps)
+  const locationLinks: Record<string, string> = {
+    "Milo Bail Student Center": "https://maps.app.goo.gl/LheoriHSPCskG7hV7",
+    "Criss Library": "https://maps.app.goo.gl/QGNq4x4n8Gt11LnC7",
+    "Scott Village Clubhouse": "https://maps.app.goo.gl/fDCYKE3Gf2xbMavC6",
+  }
+
+  // Allows access to mapping above, defaults to Google Maps homepage if location not found
+  const locationUrl = locationLinks[location] || "https://maps.google.com";
 
   const handleClick = () => {
     console.log("UNO listing clicked!");
@@ -27,7 +38,7 @@ const Listing: FC<IListing> = (listingProps: IListing) => {
 
         <div className="listing-bottom-row">
           <div className="left-meta">
-            <a className="icon" href={miloBailLink} target="_blank">
+            <a className="icon" href={locationUrl} target="_blank">
               <FaMapLocationDot /> {location}
             </a>
             <a className="icon">
