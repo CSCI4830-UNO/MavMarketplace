@@ -1,21 +1,28 @@
-import { FaMapLocationDot, FaDollarSign } from "react-icons/fa6";
 import type { FC } from "react";
+import { FaMapLocationDot, FaDollarSign } from "react-icons/fa6";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
 import type { IListing } from "../types";
 import "../css/Listing.css";
 import "../css/App.css";
 import { FaEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Listing: FC<IListing> = (listingProps: IListing) => {
   const { id, imageUrl, name, price, location, paymentType, canEdit } =
     listingProps;
-  const miloBailLink = "https://shorturl.at/1tZbw";
 
-  const handleClick = () => {
-    console.log("UNO listing clicked!");
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/edit/${listingProps.id}`);
   };
 
+  const miloBailLink = "https://shorturl.at/1tZbw";
+
   return (
-    <div className="listing-box" onClick={handleClick} title={id}>
+    <div className="listing-box" title={id}>
       <img
         src={imageUrl || "../assets/uno-image.jpg"}
         className="listing-image"
@@ -35,9 +42,9 @@ const Listing: FC<IListing> = (listingProps: IListing) => {
             </a>
           </div>
 
-          {canEdit && (
+          {user && canEdit === user.uid && (
             <a className="icon edit-icon">
-              <FaEdit />
+              <FaEdit onClick={handleEdit} />
             </a>
           )}
         </div>

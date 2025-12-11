@@ -14,6 +14,7 @@ import { Routes, Route } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
 import { ListingPage } from "./pages/ListingPage";
 import { CreatePage } from "./pages/CreatePage";
+import { EditPage } from "./pages/EditPage";
 import { MyListingPage } from "./pages/MyListingPage";
 import { MessagePage } from "./pages/MessagePage";
 import { ProfilePage } from "./pages/ProfilePage";
@@ -44,6 +45,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/me/listings"
             element={
