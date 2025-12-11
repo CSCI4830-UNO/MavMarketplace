@@ -27,8 +27,6 @@ const Listing: FC<IListing> = (listingProps: IListing) => {
     navigate(`/edit/${listingProps.id}`);
   };
 
-  const miloBailLink = "https://shorturl.at/1tZbw";
-
   return (
     <div className="listing-box" title={id}>
       <img
